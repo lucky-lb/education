@@ -10,4 +10,8 @@ class EducationApplicationTests {
     void contextLoads() {
     }
 
+    @Test
+    public void s() {
+        System.out.println("aaa");
+    }
 }
