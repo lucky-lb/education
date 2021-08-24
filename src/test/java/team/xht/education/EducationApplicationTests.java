@@ -8,10 +8,11 @@ class EducationApplicationTests {
 
     @Test
     void contextLoads() {
+        System.out.println("???");
     }
 
     @Test
     public void s() {
-        System.out.println("aaa");
+        System.out.println("aaaa");
     }
 }
