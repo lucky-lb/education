@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="team.xht.education.dao.EduProblemMapper">
+  <resultMap id="BaseResultMap" type="team.xht.education.entity.EduProblem">
+    <constructor>
+      <idArg column="id" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="problem_type" javaType="java.lang.Byte" jdbcType="TINYINT" />
+      <arg column="subject_id" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="sort" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="is_deleted" javaType="java.lang.Byte" jdbcType="TINYINT" />
+      <arg column="gmt_create" javaType="java.time.LocalDateTime" jdbcType="TIMESTAMP" />
+      <arg column="gmt_modified" javaType="java.time.LocalDateTime" jdbcType="TIMESTAMP" />
+    </constructor>
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="team.xht.education.entity.EduProblemWithBLOBs">
+    <constructor>
+      <idArg column="id" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="problem_type" javaType="java.lang.Byte" jdbcType="TINYINT" />
+      <arg column="subject_id" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="sort" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="is_deleted" javaType="java.lang.Byte" jdbcType="TINYINT" />
+      <arg column="gmt_create" javaType="java.time.LocalDateTime" jdbcType="TIMESTAMP" />
+      <arg column="gmt_modified" javaType="java.time.LocalDateTime" jdbcType="TIMESTAMP" />
+      <arg column="description" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
+      <arg column="answer" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, problem_type, subject_id, sort, is_deleted, gmt_create, gmt_modified
+  </sql>
+  <sql id="Blob_Column_List">
+    description, answer
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="team.xht.education.entity.EduProblemExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from edu_problem
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="team.xht.education.entity.EduProblemExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from edu_problem
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from edu_problem
+    where id = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from edu_problem
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="team.xht.education.entity.EduProblemExample">
+    delete from edu_problem
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="team.xht.education.entity.EduProblemWithBLOBs">
+    insert into edu_problem (id, problem_type, subject_id, 
+      sort, is_deleted, gmt_create, 
+      gmt_modified, description, answer
+      )
+    values (#{id,jdbcType=CHAR}, #{problemType,jdbcType=TINYINT}, #{subjectId,jdbcType=CHAR}, 
+      #{sort,jdbcType=INTEGER}, #{isDeleted,jdbcType=TINYINT}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP}, #{description,jdbcType=LONGVARCHAR}, #{answer,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="team.xht.education.entity.EduProblemWithBLOBs">
+    insert into edu_problem
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="problemType != null">
+        problem_type,
+      </if>
+      <if test="subjectId != null">
+        subject_id,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="isDeleted != null">
+        is_deleted,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="answer != null">
+        answer,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="problemType != null">
+        #{problemType,jdbcType=TINYINT},
+      </if>
+      <if test="subjectId != null">
+        #{subjectId,jdbcType=CHAR},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="isDeleted != null">
+        #{isDeleted,jdbcType=TINYINT},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="answer != null">
+        #{answer,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="team.xht.education.entity.EduProblemExample" resultType="java.lang.Long">
+    select count(*) from edu_problem
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update edu_problem
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=CHAR},
+      </if>
+      <if test="record.problemType != null">
+        problem_type = #{record.problemType,jdbcType=TINYINT},
+      </if>
+      <if test="record.subjectId != null">
+        subject_id = #{record.subjectId,jdbcType=CHAR},
+      </if>
+      <if test="record.sort != null">
+        sort = #{record.sort,jdbcType=INTEGER},
+      </if>
+      <if test="record.isDeleted != null">
+        is_deleted = #{record.isDeleted,jdbcType=TINYINT},
+      </if>
+      <if test="record.gmtCreate != null">
+        gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.gmtModified != null">
+        gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.description != null">
+        description = #{record.description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.answer != null">
+        answer = #{record.answer,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update edu_problem
+    set id = #{record.id,jdbcType=CHAR},
+      problem_type = #{record.problemType,jdbcType=TINYINT},
+      subject_id = #{record.subjectId,jdbcType=CHAR},
+      sort = #{record.sort,jdbcType=INTEGER},
+      is_deleted = #{record.isDeleted,jdbcType=TINYINT},
+      gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      description = #{record.description,jdbcType=LONGVARCHAR},
+      answer = #{record.answer,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update edu_problem
+    set id = #{record.id,jdbcType=CHAR},
+      problem_type = #{record.problemType,jdbcType=TINYINT},
+      subject_id = #{record.subjectId,jdbcType=CHAR},
+      sort = #{record.sort,jdbcType=INTEGER},
+      is_deleted = #{record.isDeleted,jdbcType=TINYINT},
+      gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="team.xht.education.entity.EduProblemWithBLOBs">
+    update edu_problem
+    <set>
+      <if test="problemType != null">
+        problem_type = #{problemType,jdbcType=TINYINT},
+      </if>
+      <if test="subjectId != null">
+        subject_id = #{subjectId,jdbcType=CHAR},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="isDeleted != null">
+        is_deleted = #{isDeleted,jdbcType=TINYINT},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="answer != null">
+        answer = #{answer,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="team.xht.education.entity.EduProblemWithBLOBs">
+    update edu_problem
+    set problem_type = #{problemType,jdbcType=TINYINT},
+      subject_id = #{subjectId,jdbcType=CHAR},
+      sort = #{sort,jdbcType=INTEGER},
+      is_deleted = #{isDeleted,jdbcType=TINYINT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      description = #{description,jdbcType=LONGVARCHAR},
+      answer = #{answer,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="team.xht.education.entity.EduProblem">
+    update edu_problem
+    set problem_type = #{problemType,jdbcType=TINYINT},
+      subject_id = #{subjectId,jdbcType=CHAR},
+      sort = #{sort,jdbcType=INTEGER},
+      is_deleted = #{isDeleted,jdbcType=TINYINT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+</mapper>

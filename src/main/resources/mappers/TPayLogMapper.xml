@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="team.xht.education.dao.TPayLogMapper">
+  <resultMap id="BaseResultMap" type="team.xht.education.entity.TPayLog">
+    <constructor>
+      <idArg column="id" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="order_no" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="pay_time" javaType="java.time.LocalDateTime" jdbcType="TIMESTAMP" />
+      <arg column="total_fee" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
+      <arg column="transaction_id" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="trade_state" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="pay_type" javaType="java.lang.Byte" jdbcType="TINYINT" />
+      <arg column="is_deleted" javaType="java.lang.Byte" jdbcType="TINYINT" />
+      <arg column="gmt_create" javaType="java.time.LocalDateTime" jdbcType="TIMESTAMP" />
+      <arg column="gmt_modified" javaType="java.time.LocalDateTime" jdbcType="TIMESTAMP" />
+    </constructor>
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="team.xht.education.entity.TPayLog">
+    <constructor>
+      <idArg column="id" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="order_no" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="pay_time" javaType="java.time.LocalDateTime" jdbcType="TIMESTAMP" />
+      <arg column="total_fee" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
+      <arg column="transaction_id" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="trade_state" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="pay_type" javaType="java.lang.Byte" jdbcType="TINYINT" />
+      <arg column="is_deleted" javaType="java.lang.Byte" jdbcType="TINYINT" />
+      <arg column="gmt_create" javaType="java.time.LocalDateTime" jdbcType="TIMESTAMP" />
+      <arg column="gmt_modified" javaType="java.time.LocalDateTime" jdbcType="TIMESTAMP" />
+      <arg column="attr" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, order_no, pay_time, total_fee, transaction_id, trade_state, pay_type, is_deleted, 
+    gmt_create, gmt_modified
+  </sql>
+  <sql id="Blob_Column_List">
+    attr
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="team.xht.education.entity.TPayLogExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_pay_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="team.xht.education.entity.TPayLogExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_pay_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_pay_log
+    where id = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_pay_log
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="team.xht.education.entity.TPayLogExample">
+    delete from t_pay_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="team.xht.education.entity.TPayLog">
+    insert into t_pay_log (id, order_no, pay_time, 
+      total_fee, transaction_id, trade_state, 
+      pay_type, is_deleted, gmt_create, 
+      gmt_modified, attr)
+    values (#{id,jdbcType=CHAR}, #{orderNo,jdbcType=VARCHAR}, #{payTime,jdbcType=TIMESTAMP}, 
+      #{totalFee,jdbcType=DECIMAL}, #{transactionId,jdbcType=VARCHAR}, #{tradeState,jdbcType=CHAR}, 
+      #{payType,jdbcType=TINYINT}, #{isDeleted,jdbcType=TINYINT}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP}, #{attr,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="team.xht.education.entity.TPayLog">
+    insert into t_pay_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="orderNo != null">
+        order_no,
+      </if>
+      <if test="payTime != null">
+        pay_time,
+      </if>
+      <if test="totalFee != null">
+        total_fee,
+      </if>
+      <if test="transactionId != null">
+        transaction_id,
+      </if>
+      <if test="tradeState != null">
+        trade_state,
+      </if>
+      <if test="payType != null">
+        pay_type,
+      </if>
+      <if test="isDeleted != null">
+        is_deleted,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+      <if test="attr != null">
+        attr,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="orderNo != null">
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="payTime != null">
+        #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="totalFee != null">
+        #{totalFee,jdbcType=DECIMAL},
+      </if>
+      <if test="transactionId != null">
+        #{transactionId,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeState != null">
+        #{tradeState,jdbcType=CHAR},
+      </if>
+      <if test="payType != null">
+        #{payType,jdbcType=TINYINT},
+      </if>
+      <if test="isDeleted != null">
+        #{isDeleted,jdbcType=TINYINT},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="attr != null">
+        #{attr,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="team.xht.education.entity.TPayLogExample" resultType="java.lang.Long">
+    select count(*) from t_pay_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_pay_log
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=CHAR},
+      </if>
+      <if test="record.orderNo != null">
+        order_no = #{record.orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payTime != null">
+        pay_time = #{record.payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.totalFee != null">
+        total_fee = #{record.totalFee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.transactionId != null">
+        transaction_id = #{record.transactionId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tradeState != null">
+        trade_state = #{record.tradeState,jdbcType=CHAR},
+      </if>
+      <if test="record.payType != null">
+        pay_type = #{record.payType,jdbcType=TINYINT},
+      </if>
+      <if test="record.isDeleted != null">
+        is_deleted = #{record.isDeleted,jdbcType=TINYINT},
+      </if>
+      <if test="record.gmtCreate != null">
+        gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.gmtModified != null">
+        gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.attr != null">
+        attr = #{record.attr,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update t_pay_log
+    set id = #{record.id,jdbcType=CHAR},
+      order_no = #{record.orderNo,jdbcType=VARCHAR},
+      pay_time = #{record.payTime,jdbcType=TIMESTAMP},
+      total_fee = #{record.totalFee,jdbcType=DECIMAL},
+      transaction_id = #{record.transactionId,jdbcType=VARCHAR},
+      trade_state = #{record.tradeState,jdbcType=CHAR},
+      pay_type = #{record.payType,jdbcType=TINYINT},
+      is_deleted = #{record.isDeleted,jdbcType=TINYINT},
+      gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      attr = #{record.attr,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_pay_log
+    set id = #{record.id,jdbcType=CHAR},
+      order_no = #{record.orderNo,jdbcType=VARCHAR},
+      pay_time = #{record.payTime,jdbcType=TIMESTAMP},
+      total_fee = #{record.totalFee,jdbcType=DECIMAL},
+      transaction_id = #{record.transactionId,jdbcType=VARCHAR},
+      trade_state = #{record.tradeState,jdbcType=CHAR},
+      pay_type = #{record.payType,jdbcType=TINYINT},
+      is_deleted = #{record.isDeleted,jdbcType=TINYINT},
+      gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="team.xht.education.entity.TPayLog">
+    update t_pay_log
+    <set>
+      <if test="orderNo != null">
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="payTime != null">
+        pay_time = #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="totalFee != null">
+        total_fee = #{totalFee,jdbcType=DECIMAL},
+      </if>
+      <if test="transactionId != null">
+        transaction_id = #{transactionId,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeState != null">
+        trade_state = #{tradeState,jdbcType=CHAR},
+      </if>
+      <if test="payType != null">
+        pay_type = #{payType,jdbcType=TINYINT},
+      </if>
+      <if test="isDeleted != null">
+        is_deleted = #{isDeleted,jdbcType=TINYINT},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="attr != null">
+        attr = #{attr,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="team.xht.education.entity.TPayLog">
+    update t_pay_log
+    set order_no = #{orderNo,jdbcType=VARCHAR},
+      pay_time = #{payTime,jdbcType=TIMESTAMP},
+      total_fee = #{totalFee,jdbcType=DECIMAL},
+      transaction_id = #{transactionId,jdbcType=VARCHAR},
+      trade_state = #{tradeState,jdbcType=CHAR},
+      pay_type = #{payType,jdbcType=TINYINT},
+      is_deleted = #{isDeleted,jdbcType=TINYINT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      attr = #{attr,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="team.xht.education.entity.TPayLog">
+    update t_pay_log
+    set order_no = #{orderNo,jdbcType=VARCHAR},
+      pay_time = #{payTime,jdbcType=TIMESTAMP},
+      total_fee = #{totalFee,jdbcType=DECIMAL},
+      transaction_id = #{transactionId,jdbcType=VARCHAR},
+      trade_state = #{tradeState,jdbcType=CHAR},
+      pay_type = #{payType,jdbcType=TINYINT},
+      is_deleted = #{isDeleted,jdbcType=TINYINT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+</mapper>
