@@ -12,4 +12,8 @@ public interface UcenterMemberService {
     ResultData<Object> getMessage(String mobile);
 
     ResultData<Object> updateMessage(UcenterMember member);
+
+    ResultData<Object> updateMobile(String oldMobile, String newMobile);
+
+    ResultData<Object> updatePassword(String mobile,String oldPassword, String newPassword);
 }

@@ -18,8 +18,12 @@ public class UcenterMemberController {
 
     @GetMapping("/login")
     public ResultData<Object> login(String mobile, String password) {
-        ResultData<Object> resultData = checkMobileAndPassword(mobile, password);
-        if (resultData.getCode() == 200) {
+        ResultData<Object> resultData = checkParam(mobile, "mobile");
+        if (resultData.getCode() == 404) {
+            return resultData;
+        }
+        resultData = checkParam(password, "password");
+        if (resultData.getCode() != 404) {
             return service.login(mobile, password);
         } else {
             return resultData;
@@ -28,8 +32,12 @@ public class UcenterMemberController {
 
     @GetMapping("/register")
     public ResultData<Object> register(String mobile, String password) {
-        ResultData<Object> resultData = checkMobileAndPassword(mobile, password);
-        if (resultData.getCode() == 200) {
+        ResultData<Object> resultData = checkParam(mobile, "mobile");
+        if (resultData.getCode() == 404) {
+            return resultData;
+        }
+        resultData = checkParam(password, "password");
+        if (resultData.getCode() != 404) {
             return service.register(mobile, password);
         } else {
             return resultData;
@@ -38,33 +46,55 @@ public class UcenterMemberController {
 
     @GetMapping("/getMessage")
     public ResultData<Object> getMessage(String mobile) {
-        ResultData<Object> resultData = checkMobileAndPassword(mobile,"0");
-        if (resultData.getCode() == 200) {
+        ResultData<Object> resultData = checkParam(mobile, "mobile");
+        if (resultData.getCode() != 404) {
             return service.getMessage(mobile);
         } else {
             return resultData;
         }
     }
+
     @GetMapping("/updateMessage")
     public ResultData<Object> updateMessage(UcenterMember member) {
-        ResultData<Object> resultData = checkMobileAndPassword(member.getMobile(),"0");
-        if (resultData.getCode() == 200) {
+        ResultData<Object> resultData = checkParam(member.getMobile(), "mobile");
+        if (resultData.getCode() != 404) {
             return service.updateMessage(member);
         } else {
             return resultData;
         }
     }
 
-    private ResultData<Object> checkMobileAndPassword(String mobile, String password) {
+    @GetMapping("/updateMobile")
+    public ResultData<Object> updateMobile(String oldMobile, String newMobile) {
+        ResultData<Object> resultData = checkParam(oldMobile, "oldMobile");
+        if (resultData.getCode() == 404) {
+            return resultData;
+        }
+        resultData = checkParam(newMobile, "newMobile");
+        if (resultData.getCode() == 404) {
+            return resultData;
+        }
+        return service.updateMobile(oldMobile, newMobile);
+    }
+
+    @GetMapping("/updatePassword")
+    public ResultData<Object> updatePassword(String mobile,String oldPassword, String newPassword) {
+        ResultData<Object> resultData = checkParam(oldPassword, "oldPassword");
+        if (resultData.getCode() == 404) {
+            return resultData;
+        }
+        resultData = checkParam(newPassword, "newPassword");
+        if (resultData.getCode() == 404) {
+            return resultData;
+        }
+        return service.updatePassword(mobile,oldPassword, newPassword);
+    }
+
+    private ResultData<Object> checkParam(String param, String value) {
         ResultData<Object> resultData = new ResultData<>();
-        if (mobile == null || mobile.equals("")) {
+        if (param == null || param.equals("")) {
             resultData.setCode(404);
-            resultData.setMsg("mobile is null, please check");
-        } else if (password == null || password.equals("")) {
-            resultData.setCode(404);
-            resultData.setMsg("password is null, please check");
-        } else {
-            resultData.setCode(200);
+            resultData.setMsg(value + " is null, please check");
         }
         return resultData;
     }
