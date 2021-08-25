@@ -1,7 +1,11 @@
 package team.xht.education.entity;
 
-import java.time.LocalDateTime;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+import java.time.LocalDateTime;
+@EqualsAndHashCode(callSuper = true)
+@Data
 public class EduProblemWithBLOBs extends EduProblem {
     private String description;
 

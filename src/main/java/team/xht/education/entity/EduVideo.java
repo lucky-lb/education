@@ -1,7 +1,9 @@
 package team.xht.education.entity;
 
-import java.time.LocalDateTime;
+import lombok.Data;
 
+import java.time.LocalDateTime;
+@Data
 public class EduVideo {
     private String id;
 
