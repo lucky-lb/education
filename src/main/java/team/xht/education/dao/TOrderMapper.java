@@ -1,10 +1,11 @@
 package team.xht.education.dao;
-
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 import team.xht.education.entity.TOrder;
 import team.xht.education.entity.TOrderExample;
 
+import java.util.List;
+@Repository
 public interface TOrderMapper {
     long countByExample(TOrderExample example);
 

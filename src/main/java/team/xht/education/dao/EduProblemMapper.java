@@ -1,11 +1,13 @@
 package team.xht.education.dao;
 
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 import team.xht.education.entity.EduProblem;
 import team.xht.education.entity.EduProblemExample;
 import team.xht.education.entity.EduProblemWithBLOBs;
 
+import java.util.List;
+@Repository
 public interface EduProblemMapper {
     long countByExample(EduProblemExample example);
 

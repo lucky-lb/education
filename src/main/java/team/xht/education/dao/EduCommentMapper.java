@@ -1,10 +1,12 @@
 package team.xht.education.dao;
 
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 import team.xht.education.entity.EduComment;
 import team.xht.education.entity.EduCommentExample;
 
+import java.util.List;
+@Repository
 public interface EduCommentMapper {
     long countByExample(EduCommentExample example);
 
