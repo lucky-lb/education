@@ -95,6 +95,8 @@ public class UcenterMemberController {
         if (param == null || param.equals("")) {
             resultData.setCode(404);
             resultData.setMsg(value + " is null, please check");
+        }else {
+            resultData.setCode(200);
         }
         return resultData;
     }
