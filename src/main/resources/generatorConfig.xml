@@ -87,6 +87,7 @@
         <table tableName="edu_chapter"></table>
         <table tableName="edu_comment"></table>
         <table tableName="edu_course_collect"></table>
+        <table tableName="edu_course"></table>
         <table tableName="edu_course_description"></table>
         <table tableName="edu_problem"></table>
         <table tableName="edu_subject"></table>
