@@ -1,4 +1,6 @@
 package team.xht.education.dao;
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import team.xht.education.entity.EduVideo;
@@ -6,7 +8,7 @@ import team.xht.education.entity.EduVideoExample;
 
 import java.util.List;
 @Repository
-public interface EduVideoMapper {
+public interface EduVideoMapper extends BaseMapper<EduVideo> {
     long countByExample(EduVideoExample example);
 
     int deleteByExample(EduVideoExample example);
