@@ -9,7 +9,9 @@ import team.xht.education.entity.UcenterMemberExample;
 import team.xht.education.reult.ResultData;
 import team.xht.education.service.UcenterMemberService;
 import team.xht.education.util.DateAndLocal;
+import team.xht.education.util.JwtHelper;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -20,7 +22,7 @@ public class UcenterMemberServiceImpl implements UcenterMemberService {
     UcenterMemberMapper mapper;
 
     @Override
-    public ResultData<Object> login(String mobile, String password) {
+    public ResultData<Object> login(String mobile, String password, HttpServletRequest request) {
         ResultData<Object> resultData = new ResultData<>();
         UcenterMember member = findMemberByMobile(mobile);
         if (member == null) {
@@ -35,12 +37,16 @@ public class UcenterMemberServiceImpl implements UcenterMemberService {
             resultData.setCode(500);
             resultData.setMsg("password error");
         }
+        String token = JwtHelper.createToken(Long.valueOf(mobile), password);
+        System.out.println("token:" + token);
+        request.getSession().setAttribute("token", token);
+        resultData.setData(token);
         return resultData;
     }
 
     @Override
     @Transactional
-    public ResultData<Object> register(String mobile, String password,String name) {
+    public ResultData<Object> register(String mobile, String password, String name) {
         ResultData<Object> resultData = new ResultData<>();
         UcenterMemberExample example = new UcenterMemberExample();
         UcenterMemberExample.Criteria criteria = example.createCriteria();
@@ -144,7 +150,7 @@ public class UcenterMemberServiceImpl implements UcenterMemberService {
     public ResultData<Object> updatePassword(String mobile, String oldPassword, String newPassword) {
         ResultData<Object> resultData = new ResultData<>();
         UcenterMember member = findMemberByMobile(mobile);
-        if (member==null) {
+        if (member == null) {
             resultData.setCode(404);
             resultData.setMsg("find mobile error");
             return resultData;

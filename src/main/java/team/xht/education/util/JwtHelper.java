@@ -15,12 +15,7 @@ public class JwtHelper {
                 .setExpiration(new Date(System.currentTimeMillis() + tokenExpiration))
                 .claim("userId", userId)
                 .claim("userName", userName)
-                .signWith(SignatureAlgorithm.ES256, tokenSignKey)
+                .signWith(SignatureAlgorithm.HS256, tokenSignKey)
                 .compact();
-    }
-
-    public static boolean parseToken(String token) {
-        Jwts.parser();
-        return true;
     }
 }

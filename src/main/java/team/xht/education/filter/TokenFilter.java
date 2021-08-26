@@ -1,6 +1,5 @@
 package team.xht.education.filter;
 
-import com.alibaba.druid.util.StringUtils;
 import team.xht.education.reult.ResultData;
 
 import javax.servlet.*;
@@ -22,18 +21,23 @@ public class TokenFilter implements Filter {
             filterChain.doFilter(servletRequest, servletResponse);
         } else {
             //Token验证
-            ResultData<Object> resultData=new ResultData<>();
-            String token=request.getHeader("token");
-            if(StringUtils.isEmpty(token)){
-                resultData.setCode(404);
-                resultData.setMsg("don't login");
-                response.setCharacterEncoding("utf-8");
-                response.setContentType("application/json");
-                PrintWriter writer = response.getWriter();
-                writer.println(resultData);
+            String token = request.getHeader("token");
+            String sessionToken = (String) request.getSession().getAttribute("token");
+            if (sessionToken!=null && sessionToken.equals(token)) {
+                filterChain.doFilter(servletRequest, servletResponse);
+            } else {
+                fail(response);
             }
-
-            // response.sendRedirect("/user/login");
         }
+    }
+
+    private void fail(HttpServletResponse response) throws IOException {
+        ResultData<Object> resultData = new ResultData<>();
+        resultData.setCode(404);
+        resultData.setMsg("don't login");
+        response.setCharacterEncoding("utf-8");
+        response.setContentType("application/json");
+        PrintWriter writer = response.getWriter();
+        writer.println(resultData);
     }
 }

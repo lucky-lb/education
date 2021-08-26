@@ -18,7 +18,7 @@ public class EduTeacherControllerServiceImpl implements EduTeacherControllerServ
     private EduTeacherMapper mapper;
 
     @Override
-    public ResultData<Object> findTeacherByName(String name,int page,int size) {
+    public ResultData<Object> findTeacherByNameLike(String name,int page,int size) {
         ResultData<Object> resultData = new ResultData<>();
         EduTeacherExample example = new EduTeacherExample();
         EduTeacherExample.Criteria criteria = example.createCriteria();
