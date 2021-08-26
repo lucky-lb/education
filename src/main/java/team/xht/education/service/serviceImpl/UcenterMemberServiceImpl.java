@@ -36,6 +36,7 @@ public class UcenterMemberServiceImpl implements UcenterMemberService {
         } else {
             resultData.setCode(500);
             resultData.setMsg("password error");
+            return resultData;
         }
         String token = JwtHelper.createToken(Long.valueOf(mobile), password);
         System.out.println("token:" + token);
