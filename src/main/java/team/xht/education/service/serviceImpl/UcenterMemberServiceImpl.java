@@ -40,7 +40,7 @@ public class UcenterMemberServiceImpl implements UcenterMemberService {
 
     @Override
     @Transactional
-    public ResultData<Object> register(String mobile, String password) {
+    public ResultData<Object> register(String mobile, String password,String name) {
         ResultData<Object> resultData = new ResultData<>();
         UcenterMemberExample example = new UcenterMemberExample();
         UcenterMemberExample.Criteria criteria = example.createCriteria();
@@ -54,6 +54,7 @@ public class UcenterMemberServiceImpl implements UcenterMemberService {
         UcenterMember member = new UcenterMember();
         member.setMobile(mobile);
         member.setPassword(password);
+        member.setNickname(name);
         member.setId(UUID.randomUUID().toString().substring(0, 18));
         member.setIsDeleted(false);
         member.setIsDisabled(false);

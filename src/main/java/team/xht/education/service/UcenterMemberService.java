@@ -7,7 +7,7 @@ public interface UcenterMemberService {
 
     ResultData<Object> login(String username, String password);
 
-    ResultData<Object> register(String mobile, String password);
+    ResultData<Object> register(String mobile, String password,String name);
 
     ResultData<Object> getMessage(String mobile);
 

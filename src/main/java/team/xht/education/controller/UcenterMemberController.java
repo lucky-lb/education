@@ -31,14 +31,14 @@ public class UcenterMemberController {
     }
 
     @GetMapping("/register")
-    public ResultData<Object> register(String mobile, String password) {
+    public ResultData<Object> register(String mobile, String password,String name) {
         ResultData<Object> resultData = checkParam(mobile, "mobile");
         if (resultData.getCode() == 404) {
             return resultData;
         }
         resultData = checkParam(password, "password");
         if (resultData.getCode() != 404) {
-            return service.register(mobile, password);
+            return service.register(mobile, password,name);
         } else {
             return resultData;
         }

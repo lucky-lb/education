@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 @MapperScan("team.xht.education.dao")
+//@ServletComponentScan
 public class EducationApplication {
 
     public static void main(String[] args) {

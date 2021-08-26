@@ -1,10 +1,13 @@
 package team.xht.education.dao;
 
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 import team.xht.education.entity.EduCourse;
 import team.xht.education.entity.EduCourseExample;
 
+import java.util.List;
+
+@Repository
 public interface EduCourseMapper {
     long countByExample(EduCourseExample example);
 
