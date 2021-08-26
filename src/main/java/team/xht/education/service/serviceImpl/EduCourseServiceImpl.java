@@ -37,4 +37,9 @@ public class EduCourseServiceImpl implements EduCourseService {
         resultData.setData(pageInfo);
         return resultData;
     }
+
+    @Override
+    public EduCourse findCourseById(String id) {
+        return mapper.selectByPrimaryKey(id);
+    }
 }
