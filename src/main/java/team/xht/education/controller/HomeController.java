@@ -9,15 +9,16 @@ import team.xht.education.reult.ResultData;
 import team.xht.education.service.CrmBannerService;
 
 import java.util.List;
+
 @CrossOrigin//用于跨域
 @RestController
 @RequestMapping("/home")
 public class HomeController {
     @Autowired
     CrmBannerService service;
+
     @GetMapping("/index")
-    public ResultData<Object> index(){
-        List<String> banners= service.findAll().getData();
-        return null;
+    public ResultData<List<String>> index() {
+        return service.findAll();
     }
 }

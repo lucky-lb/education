@@ -9,6 +9,7 @@ import team.xht.education.service.EduChapterService;
 
 @CrossOrigin//用于跨域
 @RestController
+@RequestMapping("/chapter")
 public class EduChapterController {
     @Autowired
     private EduChapterService service;
