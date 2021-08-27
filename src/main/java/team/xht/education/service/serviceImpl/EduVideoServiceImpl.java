@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class EduVideoServiceImpl extends ServiceImpl<EduVideoMapper, EduVideo>  implements EduVideoService {
+public class EduVideoServiceImpl  extends ServiceImpl<EduVideoMapper, EduVideo> implements EduVideoService {
     @Autowired
     private EduVideoMapper mapper;
 
