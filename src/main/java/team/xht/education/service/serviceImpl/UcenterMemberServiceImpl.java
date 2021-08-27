@@ -1,5 +1,6 @@
 package team.xht.education.service.serviceImpl;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,6 +31,7 @@ public class UcenterMemberServiceImpl implements UcenterMemberService {
             resultData.setMsg("user don't exist");
             return resultData;
         }
+        password = DigestUtils.md5Hex(password);
         if (member.getPassword().equals(password)) {
             resultData.setCode(200);
             resultData.setMsg("login success");
@@ -60,7 +62,7 @@ public class UcenterMemberServiceImpl implements UcenterMemberService {
         }
         UcenterMember member = new UcenterMember();
         member.setMobile(mobile);
-        member.setPassword(password);
+        member.setPassword(DigestUtils.md5Hex(password));
         member.setNickname(name);
         String substring = UUID.randomUUID().toString().substring(0, 18);
         while (true) {
@@ -199,6 +201,7 @@ public class UcenterMemberServiceImpl implements UcenterMemberService {
         }
         return list.get(0);
     }
+
     @Override
     @Transactional
     public ResultData<Object> updateAvatar(UcenterMember member) {
