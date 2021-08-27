@@ -21,5 +21,7 @@ public interface UcenterMemberService {
 
     UcenterMember findMemberByMobile(String mobile);
 
+    public ResultData<Object> updateAvatar(UcenterMember member);
+
     UcenterMember findMemberById(String id);
 }

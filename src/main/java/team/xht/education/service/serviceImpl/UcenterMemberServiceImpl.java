@@ -78,6 +78,7 @@ public class UcenterMemberServiceImpl implements UcenterMemberService {
         member.setIsDeleted(false);
         member.setIsDisabled(false);
         member.setGmtCreate(DateAndLocal.asLocal(new Date()));
+        member.setAvatar("https://xht1.oss-cn-beijing.aliyuncs.com/moren.PNG");//设置默认头像
         member.setGmtModified(DateAndLocal.asLocal(new Date()));
         try {
             mapper.insert(member);
@@ -198,6 +199,32 @@ public class UcenterMemberServiceImpl implements UcenterMemberService {
         }
         return list.get(0);
     }
+    @Override
+    @Transactional
+    public ResultData<Object> updateAvatar(UcenterMember member) {
+        ResultData<Object> resultData = new ResultData<>();
+        UcenterMember primer = findMemberByMobile(member.getMobile());
+        if (primer == null) {
+            resultData.setCode(404);
+            resultData.setMsg("find user error");
+            return resultData;
+        }
+        member.setId(primer.getId());
+        member.setGmtModified(DateAndLocal.asLocal(new Date()));
+        try {
+            mapper.updateByPrimaryKeySelective(member);//只更新有值的项
+            resultData.setCode(200);
+            resultData.setMsg("update success");
+            System.out.println(member);
+            resultData.setData(member + "---" + mapper.selectByPrimaryKey(member.getId()));
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultData.setCode(500);
+            resultData.setMsg("update error");
+        }
+        return resultData;
+    }
+
 
     @Override
     public UcenterMember findMemberById(String id) {

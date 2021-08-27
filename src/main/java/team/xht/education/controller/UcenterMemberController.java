@@ -92,6 +92,12 @@ public class UcenterMemberController {
         return service.updatePassword(mobile, oldPassword, newPassword);
     }
 
+    @RequestMapping("/updateAvatar")
+    public ResultData<Object> updateAvatar(UcenterMember ucenterMember) {
+        return service.updateAvatar(ucenterMember);
+    }
+
+
     private ResultData<Object> checkParam(String param, String value) {
         ResultData<Object> resultData = new ResultData<>();
         if (StringUtils.isEmpty(param)) {
