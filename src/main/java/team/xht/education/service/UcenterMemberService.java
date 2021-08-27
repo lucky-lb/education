@@ -18,4 +18,8 @@ public interface UcenterMemberService {
     ResultData<Object> updateMobile(String oldMobile, String newMobile);
 
     ResultData<Object> updatePassword(String mobile,String oldPassword, String newPassword);
+
+    UcenterMember findMemberByMobile(String mobile);
+
+    UcenterMember findMemberById(String id);
 }

@@ -36,6 +36,7 @@ public class UcenterMemberServiceImpl implements UcenterMemberService {
         } else {
             resultData.setCode(500);
             resultData.setMsg("password error");
+            return resultData;
         }
         String token = JwtHelper.createToken(Long.valueOf(mobile), password);
         System.out.println("token:" + token);
@@ -61,7 +62,19 @@ public class UcenterMemberServiceImpl implements UcenterMemberService {
         member.setMobile(mobile);
         member.setPassword(password);
         member.setNickname(name);
-        member.setId(UUID.randomUUID().toString().substring(0, 18));
+        String substring = UUID.randomUUID().toString().substring(0, 18);
+        while (true) {
+            example.clear();
+            criteria = example.createCriteria();
+            criteria.andIdEqualTo(substring);
+            UcenterMember mem = findMemberById(substring);
+            if (mem == null) {
+                break;
+            } else {
+                substring = UUID.randomUUID().toString().substring(0, 18);
+            }
+        }
+        member.setId(substring);
         member.setIsDeleted(false);
         member.setIsDisabled(false);
         member.setGmtCreate(DateAndLocal.asLocal(new Date()));
@@ -174,8 +187,8 @@ public class UcenterMemberServiceImpl implements UcenterMemberService {
         return resultData;
     }
 
-    private UcenterMember findMemberByMobile(String mobile) {
-        ResultData<Object> resultData = new ResultData<>();
+    @Override
+    public UcenterMember findMemberByMobile(String mobile) {
         UcenterMemberExample example = new UcenterMemberExample();
         UcenterMemberExample.Criteria criteria = example.createCriteria();
         criteria.andMobileEqualTo(mobile);
@@ -184,5 +197,10 @@ public class UcenterMemberServiceImpl implements UcenterMemberService {
             return null;
         }
         return list.get(0);
+    }
+
+    @Override
+    public UcenterMember findMemberById(String id) {
+        return mapper.selectByPrimaryKey(id);
     }
 }
