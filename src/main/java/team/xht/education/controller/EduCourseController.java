@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import team.xht.education.entity.EduCourse;
 import team.xht.education.reult.ResultData;
 import team.xht.education.service.EduCourseService;
 
@@ -20,5 +21,9 @@ public class EduCourseController {
                                                    @RequestParam(required = false, defaultValue = "1") int page,
                                                    @RequestParam(required = false, defaultValue = "10") int size) {
         return service.findCourseByTitleLike("%" + title + "%", page, size);
+    }
+    @RequestMapping("/insertCourse")
+    public ResultData<Object> insertCourse(EduCourse eduCourse) {
+        return service.insertCourse(eduCourse);
     }
 }

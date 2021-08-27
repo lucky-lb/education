@@ -1,6 +1,7 @@
 package team.xht.education.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,6 +13,7 @@ import team.xht.education.service.OssService;
  * @author Ydy
  * @date 2020/10/4 - 17:05
  */
+@CrossOrigin//用于跨域
 @RestController
 @RequestMapping("/eduoss/fileoss")
 public class OssController {

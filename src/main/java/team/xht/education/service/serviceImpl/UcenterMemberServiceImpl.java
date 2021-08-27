@@ -56,7 +56,7 @@ public class UcenterMemberServiceImpl implements UcenterMemberService {
         criteria.andMobileEqualTo(mobile);
         List<UcenterMember> list = mapper.selectByExample(example);
         if (list.size() > 0) {
-            resultData.setCode(200);
+            resultData.setCode(500);
             resultData.setMsg("mobile has been used");
             return resultData;
         }

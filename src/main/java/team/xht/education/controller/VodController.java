@@ -16,7 +16,7 @@ import team.xht.education.util.InitVodClient;
 
 import java.util.List;
 
-
+@CrossOrigin//用于跨域
 @RestController
 @RequestMapping("/eduvod/video")
 public class VodController {
