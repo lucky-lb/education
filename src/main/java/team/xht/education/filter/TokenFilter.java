@@ -17,18 +17,18 @@ public class TokenFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         String url = request.getRequestURI();
         System.out.println(url);
-        if (url.equals("/user/login") || url.equals("/user/register")) {
-            filterChain.doFilter(servletRequest, servletResponse);
-        } else {
-            //Token验证
-            String token = request.getHeader("token");
-            String sessionToken = (String) request.getSession().getAttribute("token");
-            if (sessionToken!=null && sessionToken.equals(token)) {
-                filterChain.doFilter(servletRequest, servletResponse);
-            } else {
-                fail(response);
-            }
-        }
+//        if (url.equals("/user/login") || url.equals("/user/register")) {
+//            filterChain.doFilter(servletRequest, servletResponse);
+//        } else {
+//            //Token验证
+//            String token = request.getHeader("token");
+//            String sessionToken = (String) request.getSession().getAttribute("token");
+//            if (sessionToken!=null && sessionToken.equals(token)) {
+//                filterChain.doFilter(servletRequest, servletResponse);
+//            } else {
+//                fail(response);
+//            }
+//        }
     }
 
     private void fail(HttpServletResponse response) throws IOException {

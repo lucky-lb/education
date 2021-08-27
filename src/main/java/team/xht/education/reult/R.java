@@ -1,5 +1,6 @@
 package team.xht.education.reult;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.HashMap;
@@ -12,6 +13,7 @@ import java.util.Map;
  */
 
 @Data
+@AllArgsConstructor
 public class R {
 
     private Boolean success;
